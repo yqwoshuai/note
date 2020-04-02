@@ -1,0 +1,26 @@
+{
+  "name": "note",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "deploy": "gh-pages -d dist -m deploy",
+    "deploy:build": "npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yqwoshuai/note.git"
+  },
+  "author": "yqwoshuai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yqwoshuai/note/issues"
+  },
+  "homepage": "https://github.com/yqwoshuai/note#readme",
+  "devDependencies": {
+    "gh-pages": "^2.2.0",
+    "vuepress": "^1.4.0"
+  }
+}
