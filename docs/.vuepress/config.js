@@ -7,11 +7,17 @@ module.exports = {
       {
         title: "《javascript高级程序设计》",
         children: [
-          "jsdevelop/1",
-          "jsdevelop/2",
-          "jsdevelop/3",
-          "jsdevelop/4",
-          "jsdevelop/5"
+          "js-develop/1",
+          "js-develop/2",
+          "js-develop/3",
+          "js-develop/4",
+          "js-develop/5"
+        ]
+      },
+      {
+        title: "各类知识点系列",
+        children: [
+          "other-know/1"
         ]
       }
     ]
