@@ -5,7 +5,7 @@ module.exports = {
   themeConfig: {
     sidebar: [
       {
-        title: "《javascript高级程序设计》",
+        title: "《JavaScript高级程序设计》",
         children: [
           "js-develop/1",
           "js-develop/2",
@@ -15,9 +15,16 @@ module.exports = {
         ]
       },
       {
+        title: "《JavaScript忍者秘籍》",
+        children: [
+          "js-nijia/1"
+        ]
+      },
+      {
         title: "各类知识点系列",
         children: [
-          "other-know/1"
+          "other-know/1",
+          "other-know/2"
         ]
       }
     ]
