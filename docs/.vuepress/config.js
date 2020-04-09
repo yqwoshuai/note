@@ -20,6 +20,12 @@ module.exports = {
                 ]
             },
             {
+                title: "《JavaScript数据结构与算法》",
+                children: [
+                    "js-algorithms/1"
+                ]
+            },
+            {
                 title: "各类知识点系列",
                 children: [
                     "other-know/1",
