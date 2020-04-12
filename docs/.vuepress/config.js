@@ -22,7 +22,15 @@ module.exports = {
             {
                 title: "《JavaScript数据结构与算法》",
                 children: [
-                    "js-algorithms/1"
+                    "js-algorithms/1",
+                    "js-algorithms/2"
+                ]
+            },
+            {
+                title: "《JavaScript设计模式》",
+                children: [
+                    "js-design/1",
+                    "js-design/2"
                 ]
             },
             {
