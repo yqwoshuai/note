@@ -22,7 +22,9 @@ module.exports = {
           "js-nijia/3",
           "js-nijia/4",
           "js-nijia/5",
-          "js-nijia/6"
+          "js-nijia/6",
+          "js-nijia/7",
+          "js-nijia/8"
         ]
       },
       {
