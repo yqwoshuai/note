@@ -11,7 +11,15 @@ module.exports = {
           "js-develop/2",
           "js-develop/3",
           "js-develop/4",
-          "js-develop/5"
+          "js-develop/5",
+          "js-develop/6",
+          "js-develop/8",
+          "js-develop/10",
+          "js-develop/11",
+          "js-develop/12",
+          "js-develop/13",
+          "js-develop/14",
+          "js-develop/20"
         ]
       },
       {
@@ -34,6 +42,30 @@ module.exports = {
       {
         title: "《JavaScript设计模式》",
         children: ["js-design/1", "js-design/2"]
+      },
+      {
+        title: "《深入浅出webpack》",
+        children: ["webpack-base/1"]
+      },
+      {
+        title: "《css揭秘》",
+        children: [
+          "css-secret/1",
+          "css-secret/2",
+          "css-secret/3",
+          "css-secret/4",
+          "css-secret/5",
+          "css-secret/6",
+          "css-secret/7",
+          "css-secret/8",
+          "css-secret/9",
+          "css-secret/10",
+          "css-secret/11"
+        ]
+      },
+      {
+        title: "vue源码解析学习笔记",
+        children: ["vue-core/1"]
       },
       {
         title: "各类知识点系列",
