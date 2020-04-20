@@ -3,8 +3,7 @@ module.exports = {
   dest: "./dist",
   title: "前端学习笔记",
   themeConfig: {
-    sidebar: [
-      {
+    sidebar: [{
         title: "《JavaScript高级程序设计》",
         children: [
           "js-develop/1",
@@ -31,13 +30,12 @@ module.exports = {
           "js-nijia/4",
           "js-nijia/5",
           "js-nijia/6",
-          "js-nijia/7",
-          "js-nijia/8"
+          "js-nijia/7", "js-nijia/8"
         ]
       },
       {
         title: "《JavaScript数据结构与算法》",
-        children: ["js-algorithms/1", "js-algorithms/2"]
+        children: ["js-algorithms/1", "js-algorithms/2", "js-algorithms/3", "js-algorithms/4", "js-algorithms/5"]
       },
       {
         title: "《JavaScript设计模式》",
