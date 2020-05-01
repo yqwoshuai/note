@@ -66,6 +66,10 @@ module.exports = {
         children: ["vue-core/1"]
       },
       {
+        title: "数据结构与算法学习笔记",
+        children: ["algorithms-exercises/1"]
+      },
+      {
         title: "各类知识点系列",
         children: ["other-know/1", "other-know/2", "other-know/3"]
       }

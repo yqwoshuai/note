@@ -6,13 +6,10 @@
 3. 《学习JavaScript数据结构与算法（第3版）》
 4. 《webpack深入浅出》
 5. 《你不知道的JavaScript》
-6. 《你不知道的JavaScript》
-7. 《Vue源码解析》
-
-把以前写的笔记迁移过来，相当于复习了：
-1. 《CSS揭秘》
-2. 《JavaScript忍者秘籍》
-3. 《JavaScript高级程序设计》
+6. [Vue源码解析](https://coding.imooc.com/learn/list/228.html)
+7. [数据结构与算法](https://coding.imooc.com/learn/list/71.html)
 
 
 ### 加油！
+
+#### 这是一个个人的学习笔记，记得都是一些个人的理解，如果你看到了这个笔记，请谨慎参考，因为内容都是我的个人理解，不一定正确。
