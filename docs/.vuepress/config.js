@@ -3,8 +3,7 @@ module.exports = {
   dest: "./dist",
   title: "前端学习笔记",
   themeConfig: {
-    sidebar: [
-      {
+    sidebar: [{
         title: "《JavaScript高级程序设计》",
         children: [
           "js-develop/1",
@@ -104,7 +103,7 @@ module.exports = {
       },
       {
         title: "数据结构与算法学习笔记",
-        children: ["algorithms-exercises/1"]
+        children: ["algorithms-exercises/1", "algorithms-exercises/2", "algorithms-exercises/3", "algorithms-exercises/4"]
       },
       {
         title: "各类知识点系列",
