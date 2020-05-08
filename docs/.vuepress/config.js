@@ -103,7 +103,13 @@ module.exports = {
       },
       {
         title: "数据结构与算法学习笔记",
-        children: ["algorithms-exercises/1", "algorithms-exercises/2", "algorithms-exercises/3", "algorithms-exercises/4"]
+        children: [
+          "algorithms-exercises/1",
+          "algorithms-exercises/2",
+          "algorithms-exercises/3",
+          "algorithms-exercises/4",
+          "algorithms-exercises/5"
+        ]
       },
       {
         title: "各类知识点系列",
