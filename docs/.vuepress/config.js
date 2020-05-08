@@ -50,7 +50,7 @@ module.exports = {
       },
       {
         title: "《深入浅出webpack》",
-        children: ["webpack-base/1"]
+        children: ["webpack-base/1", "webpack-base/2", "webpack-base/3", "webpack-base/5"]
       },
       {
         title: "《css揭秘》",
