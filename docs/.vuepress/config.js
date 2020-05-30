@@ -49,6 +49,10 @@ module.exports = {
         children: ["js-design/1", "js-design/2"]
       },
       {
+        title: "《高性能JavaScript》",
+        children: ["js-perter/1"]
+      },
+      {
         title: "《深入浅出webpack》",
         children: ["webpack-base/1", "webpack-base/2", "webpack-base/3", "webpack-base/5"]
       },
