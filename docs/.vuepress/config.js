@@ -41,7 +41,8 @@ module.exports = {
           "js-algorithms/2",
           "js-algorithms/3",
           "js-algorithms/4",
-          "js-algorithms/5"
+          "js-algorithms/5",
+          "js-algorithms/7"
         ]
       },
       {
