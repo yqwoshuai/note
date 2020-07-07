@@ -103,8 +103,12 @@ module.exports = {
         ]
       },
       {
-        title: "vue源码解析学习笔记",
-        children: ["vue-core/1"]
+        title: "vue2.0源码解析学习笔记",
+        children: ["vue-core2/1"]
+      },
+      {
+        title: "vue3.0源码解析学习笔记",
+        children: ["vue-core3/1"]
       },
       {
         title: "数据结构与算法学习笔记",
