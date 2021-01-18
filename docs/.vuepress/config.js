@@ -102,14 +102,14 @@ module.exports = {
           "css-secret/40"
         ]
       },
-      {
-        title: "vue2.0源码解析学习笔记",
-        children: ["vue-core2/1"]
-      },
-      {
-        title: "vue3.0源码解析学习笔记",
-        children: ["vue-core3/1"]
-      },
+      // {
+      //   title: "vue2.0源码解析学习笔记",
+      //   children: ["vue-core2/1"]
+      // },
+      // {
+      //   title: "vue3.0源码解析学习笔记",
+      //   children: ["vue-core3/1"]
+      // },
       {
         title: "数据结构与算法学习笔记",
         children: [
@@ -123,6 +123,10 @@ module.exports = {
       {
         title: "各类知识点系列",
         children: ["other-know/1", "other-know/2", "other-know/3"]
+      },
+      {
+        title: "手写系列",
+        children: ["write/1"]
       }
     ]
   }
