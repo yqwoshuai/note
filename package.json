@@ -21,6 +21,6 @@
   "homepage": "https://github.com/yqwoshuai/note#readme",
   "devDependencies": {
     "gh-pages": "^2.2.0",
-    "vuepress": "^1.4.0"
+    "vuepress": "^1.8.2"
   }
 }

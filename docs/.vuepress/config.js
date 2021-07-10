@@ -127,6 +127,10 @@ module.exports = {
       {
         title: "手写系列",
         children: ["write/1", "write/2", "write/3", "write/4", "write/5"]
+      },
+      {
+        title: "TS类型挑战",
+        children: ["ts-challenges/1"]
       }
     ]
   }
