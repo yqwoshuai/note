@@ -7,7 +7,7 @@ module.exports = {
   head: [["link", { rel: "icon", href: "/note/images/main.jpeg" }]],
   public: "./public",
   themeConfig: {
-    logo: "https://vuejs.org/images/logo.png",
+    logo: "/images/main.jpeg",
     repo: "https://github.com/yqwoshuai/note",
     navbar: [
       {
@@ -38,6 +38,8 @@ module.exports = {
       { text: "手写系列", link: "/write/1.html" },
     ],
     editLink: false,
+    lastUpdated: false,
+    contributors: false,
     sidebar: {
       "/js-algorithms/": [
         {
