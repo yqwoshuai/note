@@ -220,8 +220,7 @@ type isPillarMen = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Dio">; // 
 ```typescript
 type Includes<T extends unknown[], U> = U extends T[number] ? true : false;
 ```
-
----
+## Middle 题
 
 ### 获取函数返回类型
 
@@ -500,4 +499,78 @@ type MyDog = LookUp<Cat | Dog, 'dog'> // expected to be `Dog`
 
 ```typescript
 type LookUp<T, U extends string> = T extends { type: U } ? T : never;
+```
+
+---
+
+### Trim Left
+
+题目：删除字符串开头的空格
+
+```typescript
+type trimed = TrimLeft<'  Hello World  '> // expected to be 'Hello World  '
+```
+
+解答：
+
+```typescript
+type TrimLeft<T> = T extends `${" " | "\n" | "\t"}${infer R}` ? TrimLeft<R> : T;
+```
+
+---
+
+### Trim
+
+题目：删除字符串开头和结尾的空格
+
+```typescript
+type trimed = Trim<'  Hello World  '> // expected to be 'Hello World'
+```
+
+解答：
+
+```typescript
+type Trim<T> = T extends `${" " | "\n" | "\t"}${infer R}${" " | "\n" | "\t"}` ? Trim<R> : T;
+```
+
+---
+
+### Capitalize
+
+题目：将第一个字符转为大写
+
+```typescript
+type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'
+```
+
+解答：
+
+```typescript
+type MyCapitalize<T> = T extends `${infer P}${infer U}`
+	? `${Uppercase<P>}${U}`
+	: T;
+```
+
+---
+
+### Replace
+
+题目：替换给定的内容
+
+```typescript
+type replaced = Replace<'types are fun!', 'fun', 'awesome'> // expected to be 'types are awesome!'
+```
+
+解答：
+
+```typescript
+type Replace<
+	T extends string,
+	U extends string,
+	P extends string
+> = U extends ""
+	? T
+	: T extends `${infer A}${U}${infer B}`
+	? `${A}${P}${B}`
+	: T;
 ```
