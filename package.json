@@ -16,6 +16,6 @@
   "scripts": {
     "start": "vuepress dev docs",
     "build": "vuepress build docs",
-    "deploy": "npm run build & gh-pages -d dist -m deploy"
+    "deploy": "npm run build && gh-pages -d dist -m deploy"
   }
 }

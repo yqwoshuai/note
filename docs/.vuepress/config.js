@@ -3,6 +3,7 @@ module.exports = {
   title: "前端学习笔记",
   description: "记录各种前端知识的学习笔记",
   base: "/note/",
+  dest: "./dist",
   head: [["link", { rel: "icon", href: "/note/images/main.jpeg" }]],
   public: "./public",
   themeConfig: {
