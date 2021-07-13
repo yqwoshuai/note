@@ -5,7 +5,7 @@ lang: zh-CN
 heroText: 前端学习笔记
 actions:
   - text: 随便看看 →
-    link: /zh/guide/getting-started.html
+    link: /js-develop/1.html
     type: primary
 features:
 - title: 记录

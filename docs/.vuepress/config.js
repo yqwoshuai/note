@@ -20,6 +20,7 @@ module.exports = {
           },
           { text: "《css揭秘》", link: "/css-secret/1.html" },
           { text: "《JavaScript忍者秘籍》", link: "/js-njia/1.html" },
+          { text: "《你不知道的JavaScript》", link: "/js-youknow/1.html" },
         ],
       },
       {
