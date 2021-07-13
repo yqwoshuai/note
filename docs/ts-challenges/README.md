@@ -220,6 +220,7 @@ type isPillarMen = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Dio">; // 
 ```typescript
 type Includes<T extends unknown[], U> = U extends T[number] ? true : false;
 ```
+
 ## Middle 题
 
 ### 获取函数返回类型
@@ -573,4 +574,92 @@ type Replace<
 	: T extends `${infer A}${U}${infer B}`
 	? `${A}${P}${B}`
 	: T;
+```
+
+---
+
+### ReplaceAll
+
+题目：替换全部给定的内容
+
+```typescript
+type replaced = ReplaceAll<'t y p e s', ' ', ''> // expected to be 'types'
+```
+
+解答：
+
+```typescript
+type ReplaceAll<
+  T extends string,
+  U extends string,
+  P extends string
+> = U extends ""
+  ? T
+  : T extends `${infer R}${U}${infer K}`
+  ? ReplaceAll<`${R}${P}${K}`, U, P>
+  : T;
+```
+
+---
+
+### 追加参数
+
+题目：实现一个范型`AppendArgument<Fn, A>`，对于给定的函数类型 Fn，以及一个任意类型 A，返回一个新的函数 G。G 拥有 Fn 的所有参数并在末尾追加类型为 A 的参数。
+
+```typescript
+type Fn = (a: number, b: string) => number
+
+type Result = AppendArgument<Fn, boolean> 
+// 期望是 (a: number, b: string, x: boolean) => number
+```
+
+解答：
+
+```typescript
+type AppendArgument<T, A> = T extends (...args: infer P) => infer R
+  ? (...args: [...P, A]) => R
+  : never;
+```
+
+---
+
+### Length of String
+
+题目：计算字符串的长度
+
+```typescript
+type a = "hellow world";
+
+type b = LengthOfString<a>; // type b = 12
+```
+
+解答：
+
+```typescript
+type LengthOfString<
+  T extends string,
+  U extends any[] = []
+> = T extends `${infer R}${infer K}`
+  ? LengthOfString<K, [...U, R]>
+  : U["length"];
+```
+
+---
+
+### Flatten
+
+题目：铺平数组
+
+```typescript
+type flatten = Flatten<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, 5]
+```
+
+解答：
+
+```typescript
+type Flatten<T extends any[]> = T extends [infer R, ...infer K]
+  ? R extends any[]
+    ? [...Flatten<R>, ...Flatten<K>]
+    : [R, ...Flatten<K>]
+  : T;
 ```
