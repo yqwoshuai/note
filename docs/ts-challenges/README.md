@@ -663,3 +663,93 @@ type Flatten<T extends any[]> = T extends [infer R, ...infer K]
     : [R, ...Flatten<K>]
   : T;
 ```
+
+---
+
+### Append to object
+
+题目：拓展对象的属性
+
+```typescript
+type Test = { id: '1' }
+type Result = AppendToObject<Test, 'value', 4> // expected to be { id: '1', value: 4 }
+```
+
+解答：
+
+```typescript
+type AppendToObject<T extends object, U extends string, K> = {
+  [P in keyof T | U]: P extends keyof T ? T[P] : K;
+};
+```
+
+---
+
+### Absolute
+
+题目：获取数字的绝对值，返回绝对值的字符串形式
+
+```typescript
+type Test = -100;
+type Result = Absolute<Test>; // expected to be "100"
+```
+
+解答：
+
+```typescript
+type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer R}`
+  ? R
+  : `${T}`;
+```
+
+---
+
+### Merge
+
+题目：合并两个类型，key相同的类型由第二个覆盖第一个
+
+```typescript
+type a = {
+  x: 1;
+  y: 3;
+};
+
+type b = {
+  y: 2;
+  z: 3;
+};
+
+type c = Merge<a, b>; // c { x: 1, y: 2, z: 3 }
+```
+
+解答：
+
+```typescript
+type Merge<T, U> = {
+  [P in keyof T | keyof U]: P extends keyof U
+    ? U[P]
+    : P extends keyof T
+    ? T[P]
+    : never;
+};
+```
+
+---
+
+### CamelCase
+
+题目：将 横杠式 for-bar-baz 改为 驼峰式 forBarBaz
+
+```typescript
+type a = 'for-bar-baz'
+
+type b = CamelCase<a> // forBarBaz
+```
+
+解答：
+
+```typescript
+type CamelCase<T extends string> = T extends `${infer R}-${infer U}${infer K}`
+  ? CamelCase<`${R}${Uppercase<U>}${K}`>
+  : T;
+```
