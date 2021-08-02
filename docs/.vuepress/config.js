@@ -10,6 +10,7 @@ module.exports = {
     logo: "/images/main.jpeg",
     repo: "https://github.com/yqwoshuai/note",
     navbar: [
+      { text: "大前端综合进阶", link: "/fe-learn/1.html" },
       {
         text: "前端书籍笔记",
         children: [
@@ -158,6 +159,15 @@ module.exports = {
             "/write/3.md",
             "/write/4.md",
             "/write/5.md",
+          ],
+        },
+      ],
+      "/fe-learn/": [
+        {
+          title: "大前端综合进阶",
+          children: [
+            "/fe-learn/1.md",
+            "/fe-learn/2.md",
           ],
         },
       ],
