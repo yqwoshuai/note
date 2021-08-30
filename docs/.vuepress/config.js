@@ -168,6 +168,7 @@ module.exports = {
           children: [
             "/fe-learn/1.md",
             "/fe-learn/2.md",
+            "/fe-learn/3.md",
           ],
         },
       ],
