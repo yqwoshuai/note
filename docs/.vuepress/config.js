@@ -22,6 +22,7 @@ module.exports = {
           { text: "《css揭秘》", link: "/css-secret/1.html" },
           { text: "《JavaScript忍者秘籍》", link: "/js-njia/1.html" },
           { text: "《你不知道的JavaScript》", link: "/js-youknow/1.html" },
+          { text: "《Vue.js设计与实现》", link: "/vue-design/1.html" },
         ],
       },
       {
@@ -135,6 +136,19 @@ module.exports = {
             "/js-njia/6.md",
             "/js-njia/7.md",
             "/js-njia/8.md",
+          ],
+        },
+      ],
+      "/vue-design/": [
+        {
+          title: "《Vue.js设计与实现》",
+          children: [
+            "/vue-design/1.md",
+            "/vue-design/2.md",
+            "/vue-design/3.md",
+            "/vue-design/4.md",
+            "/vue-design/5.md",
+            "/vue-design/6.md",
           ],
         },
       ],
