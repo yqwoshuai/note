@@ -149,6 +149,8 @@ module.exports = {
             "/vue-design/4.md",
             "/vue-design/5.md",
             "/vue-design/6.md",
+            "/vue-design/7.md",
+            "/vue-design/8.md",
           ],
         },
       ],
