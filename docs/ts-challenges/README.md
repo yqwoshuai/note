@@ -600,11 +600,11 @@ type replaced = Replace<'types are fun!', 'fun', 'awesome'> // expected to be 't
 解答：
 
 ```typescript
-type Replace<T extends string, U extends string, P extends string> = U extends ''
-  ? T
-  : T extends `${infer A}${U}${infer B}`
-  ? `${A}${P}${B}`
-  : T
+type Replace<S extends string, From extends string, To extends string> = From extends ''
+  ? S
+  : S extends `${infer A}${From}${infer B}`
+  ? `${A}${To}${B}`
+  : S
 ```
 
 ---
@@ -620,11 +620,11 @@ type replaced = ReplaceAll<'t y p e s', ' ', ''> // expected to be 'types'
 解答：
 
 ```typescript
-type ReplaceAll<T extends string, U extends string, P extends string> = U extends ''
-  ? T
-  : T extends `${infer R}${U}${infer K}`
-  ? ReplaceAll<`${R}${P}${K}`, U, P>
-  : T
+type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
+  ? S
+  : S extends `${infer R}${From}${infer U}`
+  ? `${R}${To}${ReplaceAll<`${U}`, From, To>}`
+  : S
 ```
 
 ---
@@ -643,7 +643,23 @@ type Result = AppendArgument<Fn, boolean>
 解答：
 
 ```typescript
-type AppendArgument<T, A> = T extends (...args: infer P) => infer R ? (...args: [...P, A]) => R : never
+type AppendArgument<Fn, A> = Fn extends (...arg: infer P) => infer R ? (...arg: [...P, A]) => R : never
+```
+
+---
+
+### Permutation
+
+实现联合类型的全排列，将联合类型转换成所有可能的全排列数组的联合类型。
+
+```typescript
+type perm = Permutation<'A' | 'B' | 'C'> // ['A', 'B', 'C'] | ['A', 'C', 'B'] | ['B', 'A', 'C'] | ['B', 'C', 'A'] | ['C', 'A', 'B'] | ['C', 'B', 'A']
+```
+
+解答：
+
+```typescript
+type Permutation<T, U = T> = [T] extends [never] ? []: T extends U ? [T, ...Permutation<Exclude<U,T>>] : []
 ```
 
 ---
