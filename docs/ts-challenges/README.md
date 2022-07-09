@@ -659,7 +659,7 @@ type perm = Permutation<'A' | 'B' | 'C'> // ['A', 'B', 'C'] | ['A', 'C', 'B'] | 
 解答：
 
 ```typescript
-type Permutation<T, U = T> = [T] extends [never] ? []: T extends U ? [T, ...Permutation<Exclude<U,T>>] : []
+type Permutation<T, U = T> = [T] extends [never] ? [] : T extends U ? [T, ...Permutation<Exclude<U, T>>] : []
 ```
 
 ---
@@ -714,8 +714,8 @@ type Result = AppendToObject<Test, 'value', 4> // expected to be { id: '1', valu
 解答：
 
 ```typescript
-type AppendToObject<T extends object, U extends string, K> = {
-  [P in keyof T | U]: P extends keyof T ? T[P] : K
+type AppendToObject<T extends object, U extends string, V> = {
+  [P in keyof T | U]: P extends keyof T ? T[P] : V
 }
 ```
 
@@ -734,6 +734,23 @@ type Result = Absolute<Test> // expected to be "100"
 
 ```typescript
 type Absolute<T extends number | string | bigint> = `${T}` extends `-${infer R}` ? R : `${T}`
+```
+
+---
+
+### String to Union
+
+题目：实现一个将接收到的 String 参数转换为一个字母 Union 的类型。
+
+```typescript
+type Test = '123'
+type Result = StringToUnion<Test> // expected to be "1" | "2" | "3"
+```
+
+解答：
+
+```typescript
+type StringToUnion<T extends string> = T extends `${infer R}${infer U}` ? R | StringToUnion<U> : never
 ```
 
 ---
@@ -759,8 +776,8 @@ type c = Merge<a, b> // c { x: 1, y: 2, z: 3 }
 解答：
 
 ```typescript
-type Merge<T, U> = {
-  [P in keyof T | keyof U]: P extends keyof U ? U[P] : P extends keyof T ? T[P] : never
+type Merge<F, S> = {
+  [P in keyof F | keyof S]: P extends keyof S ? S[P] : P extends keyof F ? F[P] : never
 }
 ```
 
@@ -768,16 +785,16 @@ type Merge<T, U> = {
 
 ### CamelCase
 
-题目：将 横杠式 for-bar-baz 改为 驼峰式 forBarBaz
+题目： `FooBarBaz` -> `foo-bar-baz`
 
 ```typescript
-type a = 'for-bar-baz'
+type a = 'forBarBaz'
 
-type b = CamelCase<a> // forBarBaz
+type b = CamelCase<a> // for-bar-baz
 ```
 
 解答：
 
 ```typescript
-type CamelCase<T extends string> = T extends `${infer R}-${infer U}${infer K}` ? CamelCase<`${R}${Uppercase<U>}${K}`> : T
+type KebabCase<S> = S extends `${infer R}${infer U}` ? `${Lowercase<R>}${U extends Uncapitalize<U> ? KebabCase<U> : `-${KebabCase<U>}`}` : S
 ```
