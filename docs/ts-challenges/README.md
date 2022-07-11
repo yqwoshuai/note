@@ -923,3 +923,95 @@ type ReplaceKeys<U, T, Y> = U extends any
     }
   : never
 ```
+
+---
+
+### Percentage Parser
+
+题目： 实现类型 `PercentageParser<T>`。根据规则 `/^(\+|\-)?(\d*)?(\%)?$/` 匹配类型 T。
+
+匹配的结果由三部分组成，分别是：[`正负号`, `数字`, `单位`]，如果没有匹配，则默认是空字符串。
+
+```typescript
+type PString1 = ''
+type PString2 = '+85%'
+type PString3 = '-85%'
+type PString4 = '85%'
+type PString5 = '85'
+
+type R1 = PercentageParser<PString1> // expected ['', '', '']
+type R2 = PercentageParser<PString2> // expected ["+", "85", "%"]
+type R3 = PercentageParser<PString3> // expected ["-", "85", "%"]
+type R4 = PercentageParser<PString4> // expected ["", "85", "%"]
+type R5 = PercentageParser<PString5> // expected ["", "85", ""]
+```
+
+解答：
+
+```typescript
+type ParserLeft<A> = A extends `${infer R}${infer U}` ? (R extends '+' | '-' ? R : '') : ''
+type ParserRight<A> = A extends `${infer R}${'%'}` ? '%' : ''
+type PercentageParser<A extends string> = [ParserLeft<A>, A extends `${ParserLeft<A>}${infer R}${ParserRight<A>}` ? R : '', ParserRight<A>]
+```
+
+---
+
+### Drop Char
+
+题目： 从字符串中剔除指定字符。
+
+```typescript
+type Butterfly = DropChar<' b u t t e r f l y ! ', ' '> // 'butterfly!'
+```
+
+解答：
+
+```typescript
+type DropChar<S, C> = S extends `${infer R}${infer U}` ? `${R extends C ? '' : R}${DropChar<U, C>}` : S
+```
+
+---
+
+### PickByType
+
+题目：根据指定值筛选出符合的字段。
+
+```typescript
+type OnlyBoolean = PickByType<
+  {
+    name: string
+    count: number
+    isReadonly: boolean
+    isEnable: boolean
+  },
+  boolean
+> // { isReadonly: boolean; isEnable: boolean; }
+```
+
+解答：
+
+```typescript
+type PickByType<T, U> = {
+  [P in keyof T as T[P] extends U ? P : never]: T[P]
+}
+```
+
+---
+
+### StartsWith
+
+题目：实现`StartsWith<T, U>`,接收两个 string 类型参数,然后判断`T`是否以`U`开头,根据结果返回`true`或`false`
+
+```typescript
+type a = StartsWith<'abc', 'ac'> // expected to be false
+type b = StartsWith<'abc', 'ab'> // expected to be true
+type c = StartsWith<'abc', 'abcd'> // expected to be false
+```
+
+解答：
+
+```typescript
+type StartsWith<T extends string, U extends string> = T extends `${U}${infer R}` ? true : false
+
+type EndsWith<T extends string, U extends string> = T extends `${infer R}${U}` ? true : false
+```
