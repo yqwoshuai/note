@@ -1015,3 +1015,181 @@ type StartsWith<T extends string, U extends string> = T extends `${U}${infer R}`
 
 type EndsWith<T extends string, U extends string> = T extends `${infer R}${U}` ? true : false
 ```
+
+---
+
+### PartialByKeys
+
+题目： 实现一个通用的`PartialByKeys<T, K>`，它接收两个类型参数`T`和`K`。
+
+`K`指定应设置为可选的`T`的属性集。当没有提供`K`时，它就和普通的`Partial<T>`一样使所有属性都是可选的。
+
+```typescript
+interface User {
+  name: string
+  age: number
+  address: string
+}
+
+type UserPartialName = PartialByKeys<User, 'name'> // { name?:string; age:number; address:string }
+```
+
+解答：
+
+```typescript
+type PartialByKeys<T, U extends PropertyKey = keyof T> = Partial<T> & Omit<T, U> extends infer R
+  ? {
+      [K in keyof R]: R[K]
+    }
+  : never
+```
+
+---
+
+### RequiredByKeys
+
+题目： 实现一个通用的`RequiredByKeys<T, K>`，它接收两个类型参数`T`和`K`。
+
+`K`指定应设为必选的`T`的属性集。当没有提供`K`时，它就和普通的`Required<T>`一样使所有的属性成为必选的。
+
+```typescript
+interface User {
+  name?: string
+  age?: number
+  address?: string
+}
+
+type UserRequiredName = RequiredByKeys<User, 'name'> // { name: string; age?: number; address?: string }
+```
+
+解答：
+
+```typescript
+type RequiredByKeys<T, U extends PropertyKey = keyof T> = T & Required<Pick<T, U extends keyof T ? U : never>> extends infer R
+  ? { [K in keyof R]: R[K] }
+  : never
+```
+
+---
+
+### Mutable
+
+题目： 实现一个通用的类型 `Mutable<T>`，使类型 `T` 的全部属性可变（非只读）。
+
+```typescript
+interface Todo {
+  readonly title: string
+  readonly description: string
+  readonly completed: boolean
+}
+
+type MutableTodo = Mutable<Todo> // { title: string; description: string; completed: boolean; }
+```
+
+解答：
+
+```typescript
+type Mutable<T extends object> = {
+  -readonly [P in keyof T]: T[P]
+}
+```
+
+---
+
+### OmitByType
+
+题目： 根据指定类型排除属性
+
+```typescript
+type OmitBoolean = OmitByType<
+  {
+    name: string
+    count: number
+    isReadonly: boolean
+    isEnable: boolean
+  },
+  boolean
+> // { name: string; count: number }
+```
+
+解答：
+
+```typescript
+type OmitByType<T, U> = {
+  [P in keyof T as T[P] extends U ? never : P]: T[P]
+}
+```
+
+---
+
+### ObjectEntries
+
+题目： 实现`Object.entries`
+
+```typescript
+interface Model {
+  name: string
+  age: number
+  locations: string[] | null
+}
+type modelEntries = ObjectEntries<Model> // ['name', string] | ['age', number] | ['locations', string[] | null];
+```
+
+解答：
+
+```typescript
+type ObjectEntries<T, K extends keyof T = keyof T> = K extends keyof T
+  ? [K, T[K] extends undefined ? undefined : Exclude<T[K], undefined>]
+  : never
+```
+
+---
+
+### Shift
+
+题目： 实现`Array.shift`
+
+```typescript
+type Result = Shift<[3, 2, 1]> // [2, 1]
+```
+
+解答：
+
+```typescript
+type Shift<T extends any[]> = T extends [infer R, ...infer U] ? [...U] : never
+```
+
+---
+
+### Tuple to Nested Object
+
+题目： 将数组转为嵌套的对象
+
+```typescript
+type a = TupleToNestedObject<['a'], string> // {a: string}
+type b = TupleToNestedObject<['a', 'b'], number> // {a: {b: number}}
+type c = TupleToNestedObject<[], boolean> // boolean. if the tuple is empty, just return the U type
+```
+
+解答：
+
+```typescript
+type TupleToNestedObject<T extends any[], U> = T extends [infer R extends PropertyKey, ...infer K] ? { [key in R]: TupleToNestedObject<K, U> } : U
+```
+
+---
+
+### Reverse
+
+题目： 实现`Array.reverse`
+
+```typescript
+type a = Reverse<['a', 'b']> // ['b', 'a']
+type b = Reverse<['a', 'b', 'c']> // ['c', 'b', 'a']
+```
+
+解答：
+
+```typescript
+type Reverse<T extends any[]> = T extends [...infer R, infer U] ? [U, ...Reverse<R>] : T
+```
