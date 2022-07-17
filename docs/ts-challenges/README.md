@@ -1193,3 +1193,65 @@ type b = Reverse<['a', 'b', 'c']> // ['c', 'b', 'a']
 ```typescript
 type Reverse<T extends any[]> = T extends [...infer R, infer U] ? [U, ...Reverse<R>] : T
 ```
+
+---
+
+### Flip Arguments
+
+题目： 返回一个反转了参数的函数类型
+
+```typescript
+type Flipped = FlipArguments<(arg0: string, arg1: number, arg2: boolean) => void>
+// (arg0: boolean, arg1: number, arg2: string) => void
+```
+
+解答：
+
+```typescript
+type FlipArguments<T extends (...arg: any[]) => any> = T extends (...arg: infer R) => infer S ? (...arg: Reverse<R>) => S : T
+```
+
+---
+
+### FlattenDepth
+
+题目： 根据给定值对数组执行 Flatten 操作，默认 Flatten 一层
+
+```typescript
+type a = FlattenDepth<[1, 2, [3, 4], [[[5]]]], 2> // [1, 2, 3, 4, [5]]. flattern 2 times
+type b = FlattenDepth<[1, 2, [3, 4], [[[5]]]]> // [1, 2, 3, 4, [[5]]]. Depth defaults to be 1
+```
+
+解答：
+
+```typescript
+type needFlatten<T extends any[]> = T extends [infer U, ...infer R] ? (U extends any[] ? true : needFlatten<R>) : false
+
+type Flatten<T extends any[]> = T extends [infer U, ...infer R] ? (U extends any[] ? [...U, ...Flatten<R>] : [U, ...Flatten<R>]) : []
+
+type FlattenDepth<T extends any[], U extends number = 1, arr extends any[] = []> = needFlatten<T> extends false
+  ? T
+  : arr['length'] extends U
+  ? T
+  : FlattenDepth<Flatten<T>, U, [...arr, any]>
+```
+
+---
+
+### BEM style string
+
+题目： 给定参数返回类名的组合
+
+```typescript
+type ClassNames1 = BEM<'btn', ['price']> // 'btn__price'
+type ClassNames2 = BEM<'btn', ['price'], ['warning', 'success']> // 'btn__price--warning' | 'btn__price--success'
+type ClassNames3 = BEM<'btn', [], ['small', 'medium', 'large']> // 'btn--small' | 'btn--medium' | 'btn--large'
+```
+
+解答：
+
+```typescript
+type isNever<T> = T extends [never] ? true : false
+type safeString<T> = isNever<T> extends true ? '' : T
+type BEM<B extends string, E extends string[], M extends string[]> = `${B}${safeString<`__${E[number]}`>}${safeString<`--${M[number]}`>}`
+```
