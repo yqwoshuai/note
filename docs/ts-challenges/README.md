@@ -1255,3 +1255,62 @@ type isNever<T> = T extends [never] ? true : false
 type safeString<T> = isNever<T> extends true ? '' : T
 type BEM<B extends string, E extends string[], M extends string[]> = `${B}${safeString<`__${E[number]}`>}${safeString<`--${M[number]}`>}`
 ```
+
+---
+
+### Flip
+
+题目： 反转对象的 key 和 value
+
+```typescript
+Flip<{ a: "x", b: "y", c: "z" }>; // {x: 'a', y: 'b', z: 'c'}
+Flip<{ a: 1, b: 2, c: 3 }>; // {1: 'a', 2: 'b', 3: 'c'}
+Flip<{ a: false, b: true }>; // {false: 'a', true: 'b'}
+```
+
+解答：
+
+```typescript
+type Flip<T extends { [key: PropertyKey]: any }> = {
+  [P in keyof T as `${T[P]}`]: P
+}
+```
+
+---
+
+### Zip
+
+题目： 合并两个数组，将两个数组都具有的项合并到同一项，其他的不要
+
+```typescript
+type a = Zip<[1, 2], [true, false]> // expected to be [[1, true], [2, false]]
+type b = Zip<[1, 2, 3], ['1', '2']> //  [[1, '1'], [2, '2']]
+```
+
+解答：
+
+```typescript
+type Zip<T extends any[], U extends any[]> = T extends [infer Pt, ...infer Rt]
+  ? U extends [infer Pu, ...infer Ru]
+    ? [[Pt, Pu], ...Zip<Rt, Ru>]
+    : []
+  : []
+```
+
+---
+
+### IsTuple
+
+题目： 判断当前类型是否为元组
+
+```typescript
+type case1 = IsTuple<[number]> // true
+type case2 = IsTuple<readonly [number]> // true
+type case3 = IsTuple<number[]> // false
+```
+
+解答：
+
+```typescript
+type IsTuple<T> = [T] extends [never] ? false : T extends [any] | [] | readonly [any] ? true : false
+```
