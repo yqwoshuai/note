@@ -1314,3 +1314,131 @@ type case3 = IsTuple<number[]> // false
 ```typescript
 type IsTuple<T> = [T] extends [never] ? false : T extends [any] | [] | readonly [any] ? true : false
 ```
+
+---
+
+### Chunk
+
+题目： 按照指定的数量将数组划分
+
+```typescript
+type exp1 = Chunk<[1, 2, 3], 2> // expected to be [[1, 2], [3]]
+type exp2 = Chunk<[1, 2, 3], 4> // expected to be [[1, 2, 3]]
+type exp3 = Chunk<[1, 2, 3], 1> // expected to be [[1], [2], [3]]
+```
+
+解答：
+
+```typescript
+type Chunk<T extends any[], N extends number, U extends any[] = []> = T extends [infer P, ...infer R]
+  ? U['length'] extends N
+    ? [U, ...Chunk<T, N>]
+    : Chunk<R, N, [...U, P]>
+  : U extends []
+  ? []
+  : [U]
+```
+
+---
+
+### Without
+
+题目： 实现一个像 Lodash.without 函数一样的泛型 Without<T, U>，它接收数组类型的 T 和数字或数组类型的 U 为参数，会返回一个去除 U 中元素的数组 T。
+
+```typescript
+type Res = Without<[1, 2], 1> // expected to be [2]
+type Res1 = Without<[1, 2, 4, 1, 5], [1, 2]> // expected to be [4, 5]
+type Res2 = Without<[2, 3, 2, 3, 2, 3, 2, 3], [2, 3]> // expected to be []
+```
+
+解答：
+
+```typescript
+type Without<T, U> = T extends [infer P, ...infer R]
+  ? P extends T[number] & (U extends any[] ? U[number] : U)
+    ? [...Without<R, U>]
+    : [P, ...Without<R, U>]
+  : []
+```
+
+---
+
+### Trunc
+
+题目： 实现`Math.Trunc`
+
+```typescript
+type A = Trunc<12.34> // 12
+```
+
+解答：
+
+```typescript
+type Trunc<T extends string | number> = `${T}` extends `${infer U}.${infer R}` ? `${U}` : `${T}`
+```
+
+---
+
+### IndexOf
+
+题目： 实现`Array.indexOf`
+
+```typescript
+type Res = IndexOf<[1, 2, 3], 2> // expected to be 1
+type Res1 = IndexOf<[2, 6, 3, 8, 4, 1, 7, 3, 9], 3> // expected to be 2
+type Res2 = IndexOf<[0, 0, 0], 2> // expected to be -1
+```
+
+解答：
+
+```typescript
+type IndexOf<T extends any[], U, P extends any[] = []> = T extends [infer K, ...infer R]
+  ? Equal<K, U> extends true
+    ? P['length']
+    : IndexOf<R, U, [...P, K]>
+  : -1
+```
+
+---
+
+### Join
+
+题目： 实现`Array.join`
+
+```typescript
+type Res = Join<['a', 'p', 'p', 'l', 'e'], '-'> // expected to be 'a-p-p-l-e'
+type Res1 = Join<['Hello', 'World'], ' '> // expected to be 'Hello World'
+type Res2 = Join<['2', '2', '2'], 1> // expected to be '21212'
+type Res3 = Join<['o'], 'u'> // expected to be 'o'
+```
+
+解答：
+
+```typescript
+type Join<T extends unknown[], U extends string | number> = T extends [infer P, ...infer R]
+  ? R['length'] extends 0
+    ? P
+    : `${P & string}${U}${Join<R, U>}`
+  : ''
+```
+
+---
+
+### lastIndexOf
+
+题目： 实现`Array.lastIndexOf`
+
+```typescript
+type Res1 = LastIndexOf<[1, 2, 3, 2, 1], 2> // 3
+type Res2 = LastIndexOf<[0, 0, 0], 2> // -1
+```
+
+解答：
+
+```typescript
+type Join<T extends unknown[], U extends string | number> = T extends [infer P, ...infer R]
+  ? R['length'] extends 0
+    ? P
+    : `${P & string}${U}${Join<R, U>}`
+  : ''
+```
