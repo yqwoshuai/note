@@ -1436,9 +1436,5 @@ type Res2 = LastIndexOf<[0, 0, 0], 2> // -1
 解答：
 
 ```typescript
-type Join<T extends unknown[], U extends string | number> = T extends [infer P, ...infer R]
-  ? R['length'] extends 0
-    ? P
-    : `${P & string}${U}${Join<R, U>}`
-  : ''
+type LastIndexOf<T, U> = T extends [...infer R, infer P] ? (Equal<U, P> extends true ? R['length'] : LastIndexOf<R, U>) : -1
 ```
