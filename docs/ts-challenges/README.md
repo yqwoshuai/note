@@ -1438,3 +1438,63 @@ type Res2 = LastIndexOf<[0, 0, 0], 2> // -1
 ```typescript
 type LastIndexOf<T, U> = T extends [...infer R, infer P] ? (Equal<U, P> extends true ? R['length'] : LastIndexOf<R, U>) : -1
 ```
+
+---
+
+### Unique
+
+题目： 数组去重
+
+```typescript
+type Res = Unique<[1, 1, 2, 2, 3, 3]> // expected to be [1, 2, 3]
+type Res1 = Unique<[1, 2, 3, 4, 4, 5, 6, 7]> // expected to be [1, 2, 3, 4, 5, 6, 7]
+type Res2 = Unique<[1, 'a', 2, 'b', 2, 'a']> // expected to be [1, "a", 2, "b"]
+type Res3 = Unique<[string, number, 1, 'a', 1, string, 2, 'b', 2, number]> // expected to be [string, number, 1, "a", 2, "b"]
+type Res4 = Unique<[unknown, unknown, any, any, never, never]> // expected to be [unknown, any, never]
+```
+
+解答：
+
+```typescript
+type Unique<T extends any[], U extends any[] = []> = T extends [infer P, ...infer R]
+  ? Includes<U, P> extends true
+    ? Unique<R, U>
+    : Unique<R, [...U, P]>
+  : U
+```
+
+---
+
+### MapTypes
+
+题目： 按照给定的类型进行转换
+
+```typescript
+type StringToNumber = { mapFrom: string; mapTo: number }
+type StringToDate = { mapFrom: string; mapTo: Date }
+type A = MapTypes<{ iWillBeNumberOrDate: string }, StringToDate | StringToNumber> // gives { iWillBeNumberOrDate: number | Date; }
+```
+
+解答：
+
+```typescript
+type MapTypes<T extends Record<PropertyKey, unknown>, U extends { mapFrom: unknown; mapTo: unknown }> = {
+  [P in keyof T]: T[P] extends U['mapFrom'] ? Extract<U, { mapFrom: T[P] }>['mapTo'] : T[P]
+}
+```
+
+---
+
+### Construct Tuple
+
+题目： 构造数组
+
+```typescript
+type result = ConstructTuple<2> // expect to be [unknown, unkonwn]
+```
+
+解答：
+
+```typescript
+type ConstructTuple<T extends number, U extends any[] = []> = T extends U['length'] ? U : ConstructTuple<T, [...U, unknown]>
+```
