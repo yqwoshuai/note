@@ -500,12 +500,13 @@ const p = PromiseAll([promise1, promise2, promise3] as const)
 ```
 
 解答：
-
 ```typescript
+type MyAwait<T> = T extends Promise<infer R> ? MyAwait<R> : T
+
 declare function PromiseAll<T extends any[]>(
   values: readonly [...T]
 ): Promise<{
-  [P in keyof T]: T[P] extends Promise<infer U> ? U : T[P]
+  [P in keyof T]: MyAwait<T[P]> //  或者直接使用 Awaited<T[Key] 4.5版本引入
 }>
 ```
 
